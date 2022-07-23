@@ -19,5 +19,5 @@ func (this *VersionCtl) Version(c *gin.Context) {
 }
 
 func (this *VersionCtl) Build(core *server.KCore) {
-	core.Handle("GET", "/version", this.Version)
+	core.Handle("GET", "/version", this.Version) //支持
 }

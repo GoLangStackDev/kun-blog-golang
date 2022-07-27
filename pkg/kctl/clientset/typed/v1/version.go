@@ -1,13 +1,13 @@
 package v1
 
 import (
-	"fmt"
+	v1 "kun-blog-golang/pkg/apis/v1"
 	"kun-blog-golang/pkg/kctl/clientset/rest"
 )
 
 // VersionInterface 定义 /version 下面有那些方法
 type VersionInterface interface {
-	Get()
+	Get() (rVersion *v1.Version, err error)
 }
 
 type version struct {
@@ -22,6 +22,8 @@ func newVersion(client *rest.RESTClient) *version {
 var _ VersionInterface = &version{}
 
 // Get 实现 VersionInterface 接口
-func (v version) Get() {
-	fmt.Println("version get")
+func (this *version) Get() (rVersion *v1.Version, err error) {
+	rVersion = &v1.Version{}
+	err = this.client.Get().Path("/v1/version").Do().Into(rVersion)
+	return
 }

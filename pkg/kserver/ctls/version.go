@@ -3,6 +3,7 @@ package ctls
 import (
 	"github.com/gin-gonic/gin"
 	"kun-blog-golang/core/server"
+	v1 "kun-blog-golang/pkg/apis/v1"
 )
 
 type VersionCtl struct{}
@@ -12,10 +13,11 @@ func NewVersionCtl() *VersionCtl {
 }
 
 func (this *VersionCtl) Version(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"Version":   "v0.1",
-		"GoVersion": "go1.7",
+	rst := v1.NewResolve(&v1.Version{
+		Version:   "v0.1",
+		GoVersion: "go1.17",
 	})
+	c.JSON(200, rst)
 }
 
 // 声明需要实现 IClass 这个接口

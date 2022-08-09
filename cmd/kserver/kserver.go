@@ -9,7 +9,8 @@ func main() {
 	r := server.New()
 	r.Mount(
 		"/v1",
-		ctls.NewVersionCtl())
+		ctls.NewVersionCtl(),
+		ctls.NewPostCtl()) //新增
 
 	r.Start()
 }

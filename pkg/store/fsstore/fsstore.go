@@ -2,6 +2,7 @@ package fsstore
 
 import (
 	"bytes"
+	"fmt"
 	"gopkg.in/yaml.v3"
 	"kun-blog-golang/pkg/store"
 	"kun-blog-golang/pkg/store/models"
@@ -35,7 +36,7 @@ func (F FSStore) GetBySlug(slug string) (*models.Post, error) {
 	panic("implement me")
 }
 
-func (F FSStore) Save(post *models.Post) error {
+func (this *FSStore) Save(post *models.Post) error {
 	var err error
 
 	// 解析成 yaml byte
@@ -56,5 +57,6 @@ func (F FSStore) Save(post *models.Post) error {
 	mdBuffer.WriteString(post.Md)
 
 	// 写入文件
-	return os.WriteFile(post.FilePath, mdBuffer.Bytes(), 0600)
+	filePath := fmt.Sprintf("%s/%s", this.root, post.FileName)
+	return os.WriteFile(filePath, mdBuffer.Bytes(), 0600)
 }

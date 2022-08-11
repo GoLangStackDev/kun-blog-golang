@@ -1,0 +1,11 @@
+{{ define "index.html" }}
+{{ template "header" .}}
+
+<h1>文章列表</h1>
+{{range $item := .Posts}}
+{{.}}
+{{end}}
+
+
+{{ template "footer" .}}
+{{ end }}

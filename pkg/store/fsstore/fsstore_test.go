@@ -17,7 +17,7 @@ func TestSave(t *testing.T) {
 			Describe:    "文章描述",
 		},
 		Md:       "# 标题",
-		FilePath: "./hello.md",
+		FileName: "hello.md",
 	})
 	if err != nil {
 		t.Error(err)

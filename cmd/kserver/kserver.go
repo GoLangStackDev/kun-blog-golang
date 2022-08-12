@@ -7,6 +7,8 @@ import (
 
 func main() {
 	r := server.New()
+	// 设置静态文件资源地址
+	r.Static("/statics", "./public/statics")
 	// 设置加载的html模板地址
 	r.LoadHTMLGlob("./public/tpl/*")
 	r.Mount("", ctls.NewPageCtl()) //添加页面控制器

@@ -1,11 +1,31 @@
 {{ define "index.html" }}
 {{ template "header" .}}
-
-<h1>文章列表</h1>
-{{range $item := .Posts}}
-{{.}}
-{{end}}
-
+<div class="index-page">
+    <div class="index-top">
+        <h1 class="index-top_title">CONTENTS</h1>
+        <div class="index-top_subtitle">这世界，缺你不可</div>
+    </div>
+    <div class="index-cent">
+        <div class="title-cent">目 录</div>
+        <div class="dot-red"></div>
+    </div>
+    <ul class="index-list">
+        {{range .Posts}}
+        <li>
+            <a class="list_title" href="/p/{{.Slug}}">
+                <span>{{.Title}}</span>
+                <div class="list_title_sub">
+                    <span>/</span>
+                    <span>{{.CreatedTime}}</span>
+                </div>
+            </a>
+            <div class="list_describe">
+                {{.Describe}}
+            </div>
+        </li>
+        {{end}}
+    </ul>
+</div>
 
 {{ template "footer" .}}
 {{ end }}

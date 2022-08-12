@@ -1,0 +1,74 @@
+div,html,body,h1,h2,h3,h4,h5,ul,li,p,span,a{
+    padding: 0;
+    margin: 0;
+}
+body{
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #eff1f2;
+}
+.dot-red{
+    width: 10px;
+    height: 20px;
+    border-radius: 20px 0 20px 0;
+    background-color: #9d5449;
+}
+
+/*首页*/
+.index-page{
+    margin: 0 12px;
+}
+.index-page .index-top{
+    text-align: right;
+    color: #9d5449;
+}
+.index-page .index-top_title{
+    font-size: 48px;
+    font-weight: 400;
+}
+.index-page .index-top_subtitle{
+    font-size: 24px;
+    font-weight: 100;
+}
+
+.index-cent{
+    display: flex;
+    margin: 20px 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    color: #9d5449;
+}
+.index-cent .title-cent{
+    font-size: 24px;
+}
+.index-cent .dot-red{
+    margin: 10px 0 20px 0;
+}
+
+.index-list{
+    list-style: none;
+}
+.index-list li{
+    margin-bottom: 20px;
+}
+.index-list .list_title{
+    text-decoration: none;
+    color: #383838;
+    font-size: 22px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+.index-list .list_title .list_title_sub{
+    color: #9d5449;
+    margin-left: 8px;
+}
+.index-list .list_describe{
+    margin-left: 60px;
+    width: 60%;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: 120;
+    margin-top: 10px;
+}

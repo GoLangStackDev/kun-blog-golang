@@ -1,0 +1,26 @@
+{{ define "detail.html" }}
+{{ template "header" .}}
+
+<div class="detail-page">
+  <div class="detail-top">
+    <div class="line-trs"></div>
+    <h1 class="detail-top_title">
+      {{.Post.Title}}
+    </h1>
+    <div class="detail-top_time">
+      <span>{{.Post.CreatedTime}}</span>
+      {{if .Post.Author}}
+      <span>/</span>
+      <span>{{.Post.Author}}</span>
+      {{end}}
+    </div>
+    <div class="dot-red"></div>
+  </div>
+
+  <div class="detail-body" id="nice">
+    {{.Post.Md}}
+  </div>
+</div>
+
+{{ template "footer" .}}
+{{ end }}

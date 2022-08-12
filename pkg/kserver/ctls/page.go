@@ -5,6 +5,7 @@ import (
 	"kun-blog-golang/core/server"
 	"kun-blog-golang/pkg/store/fsstore"
 	"log"
+	"net/http"
 )
 
 type PageCtl struct {
@@ -21,7 +22,6 @@ func NewPageCtl() *PageCtl {
 }
 
 func (this *PageCtl) HomePage(c *gin.Context) {
-	//list := make([]*models.Post, 0)
 	list, err := this.fs.List()
 	if err != nil {
 		log.Println(err)
@@ -32,6 +32,20 @@ func (this *PageCtl) HomePage(c *gin.Context) {
 	})
 }
 
+// DetailPage 详情页
+func (this *PageCtl) DetailPage(c *gin.Context) {
+	slug := c.Param("slug")
+	post, err := this.fs.GetBySlug(slug)
+	if err != nil {
+		log.Println(err)
+	}
+	c.HTML(http.StatusOK, "detail.html", gin.H{
+		"Title": "详情",
+		"Post":  post,
+	})
+}
+
 func (this *PageCtl) Build(core *server.KCore) {
 	core.Handle("GET", "/", this.HomePage)
+	core.Handle("GET", "/posts/:slug", this.DetailPage)
 }

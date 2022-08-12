@@ -72,3 +72,33 @@ body{
     font-weight: 120;
     margin-top: 10px;
 }
+
+
+/*详情*/
+.detail-page{
+    margin: 0 12px;
+    padding-bottom: 40px;
+}
+.detail-top{
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+.line-trs{
+    background-color: #9d5449;
+    width: 120px;
+    height: 1px;
+    transform: rotate(140deg);
+    margin-left: -20px;
+}
+.detail-top .detail-top_title{
+    font-weight: 200;
+    letter-spacing: 8px;
+    width: 60%;
+    margin-top: 90px;
+}
+.detail-top .detail-top_time{
+    margin-top: 20px;
+}
+.detail-top .dot-red{
+    margin: 20px 0;
+}

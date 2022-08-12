@@ -2,6 +2,7 @@ package fsstore
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"gopkg.in/yaml.v3"
 	"io/fs"
@@ -60,6 +61,8 @@ func (this *FSStore) catchFiles() (err error) {
 		if postM, err = utils.ParseFileToPost(f); err != nil {
 			return err
 		}
+		// 添加本地文件地址
+		postM.LocalPath = path
 		// 保存到缓存
 		this.catchMap[postM.Slug] = postM
 		return nil
@@ -73,9 +76,20 @@ func (this *FSStore) List() (posts []*models.Post, err error) {
 	return this.catchMap.All(), nil
 }
 
-func (F FSStore) DeleteBySlug(slug string) error {
-	//TODO implement me
-	panic("implement me")
+func (this *FSStore) DeleteBySlug(slug string) error {
+	path := this.catchMap[slug].LocalPath
+	_, err := os.Stat(path)
+	if err == nil {
+		// 删除本地文件
+		if err = os.RemoveAll(path); err == nil {
+			// 删除本地缓存
+			delete(this.catchMap, slug)
+			return nil
+		}
+		return err
+	}
+	log.Println(err)
+	return errors.New("删除本地文件失败")
 }
 
 func (this *FSStore) GetBySlug(slug string) (*models.Post, error) {

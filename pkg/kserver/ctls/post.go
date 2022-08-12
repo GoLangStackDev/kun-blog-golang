@@ -43,6 +43,48 @@ func (this *PostCtl) Apply(c *gin.Context) {
 	})
 }
 
+func (this *PostCtl) Get(c *gin.Context) {
+	slug := c.Param("slug")
+	m, err := this.fs.GetBySlug(slug)
+	CheckError(err)
+	if m == nil {
+		c.JSON(200, gin.H{
+			"code": 404,
+			"msg":  "没找到文章",
+			"data": "",
+		})
+	} else {
+		c.JSON(200, gin.H{
+			"code": 200,
+			"msg":  "操作成功",
+			"data": m,
+		})
+	}
+}
+
+func (this *PostCtl) Delete(c *gin.Context) {
+	slug := c.Param("slug")
+	CheckError(this.fs.DeleteBySlug(slug))
+	c.JSON(200, gin.H{
+		"code": 200,
+		"msg":  "操作成功",
+		"data": "",
+	})
+}
+
+func (this *PostCtl) List(c *gin.Context) {
+	list, err := this.fs.List()
+	CheckError(err)
+	c.JSON(200, gin.H{
+		"code": 200,
+		"msg":  "操作成功",
+		"data": list,
+	})
+}
+
 func (this *PostCtl) Build(core *server.KCore) {
-	core.Handle("POST", "/post/apply", this.Apply)
+	core.Handle("POST", "/posts/apply", this.Apply)
+	core.Handle("GET", "/posts/:slug", this.Get)
+	core.Handle("DELETE", "/posts/:slug", this.Delete)
+	core.Handle("GET", "/posts", this.List)
 }

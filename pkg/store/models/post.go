@@ -12,8 +12,8 @@ type PostConfig struct {
 
 type Post struct {
 	*PostConfig
-	FileName string
-	Html     string
-	Md       string
-	//FilePath string `yaml:"-"`
+	FileName  string
+	Html      string
+	Md        string
+	LocalPath string //本地地址
 }

@@ -20,7 +20,8 @@ func RunCmd() {
 		VersionCMD,
 		ApplyCMD,
 		cmdGet.GetCMD,
-		cmdDelete.DeleteCMD)
+		cmdDelete.DeleteCMD,
+		configCMD)
 
 	// 执行
 	if err := cmd.Execute(); err != nil {

@@ -13,6 +13,11 @@ type Config struct {
 	ServerHost string `yaml:"server_host"`
 	// 连接超时时间
 	TimeOutSecond int `yaml:"time_out_second"`
+
+	// ssl证书
+	ClientCertData string `yaml:"client_cert_data"`
+	ClientKeyData  string `yaml:"client_key_data"`
+	CaData         string `yaml:"ca_data"`
 }
 
 func getConfigFilePath() string {
@@ -47,4 +52,16 @@ func MustLoadFile(path string) []byte {
 		panic(err)
 	}
 	return b
+}
+
+func SaveConfig(cfg *Config) {
+	b, err := yaml.Marshal(cfg)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	path := getConfigFilePath()
+	err = os.WriteFile(path, b, 0600)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }

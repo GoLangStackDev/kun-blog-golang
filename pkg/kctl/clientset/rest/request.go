@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/go-resty/resty/v2"
+	"log"
 	"net/http"
 	"net/url"
 )
@@ -49,6 +50,7 @@ func (this *Request) Do() *Result {
 func toResult(rsp *resty.Response, err error) *Result {
 	rest := &Result{}
 	if err != nil {
+		log.Println(err) //新增异常输出
 		rest.err = err
 	} else if rsp.IsError() {
 		if rsp.Error() == nil { //兼容 http code 不是200

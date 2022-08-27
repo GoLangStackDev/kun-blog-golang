@@ -2,3 +2,9 @@
 go.sum
 certs/*.pem
 certs/*.csr
+
+/certs/ca-config.json
+/certs/ca-csr.json
+/certs/client-csr.json
+/certs/server-csr.json
+/certs/*

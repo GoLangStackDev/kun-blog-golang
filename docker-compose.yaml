@@ -1,0 +1,18 @@
+version: "2"
+services:
+
+  server:
+    image: kserver:v1
+    container_name: "kub_server"
+    restart: always
+    ports:
+      - 8067:8080
+
+  nginx:
+    container_name: "nginx_k_server"
+    image: nginx:1.23-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./certs:/etc/nginx/certs #挂载目录到容器里面

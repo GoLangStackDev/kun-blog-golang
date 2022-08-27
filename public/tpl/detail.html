@@ -8,7 +8,7 @@
       {{.Post.Title}}
     </h1>
     <div class="detail-top_time">
-      <span>{{.Post.CreatedTime}}</span>
+      <span>{{TimeFormat .Post.CreatedTime "2006-01-02"}}</span>
       {{if .Post.Author}}
       <span>/</span>
       <span>{{.Post.Author}}</span>
@@ -18,7 +18,7 @@
   </div>
 
   <div class="detail-body" id="nice">
-    {{.Post.Md}}
+    {{.Post.Md | Html}}
   </div>
 </div>
 

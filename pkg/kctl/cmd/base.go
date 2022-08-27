@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
+	cmdDelete "kun-blog-golang/pkg/kctl/cmd/delete"
+	cmdGet "kun-blog-golang/pkg/kctl/cmd/get"
 	"log"
 )
 
@@ -16,7 +18,9 @@ func RunCmd() {
 	// 加入子模块
 	cmd.AddCommand(
 		VersionCMD,
-		ApplyCMD)
+		ApplyCMD,
+		cmdGet.GetCMD,
+		cmdDelete.DeleteCMD)
 
 	// 执行
 	if err := cmd.Execute(); err != nil {

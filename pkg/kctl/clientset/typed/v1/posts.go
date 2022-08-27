@@ -29,7 +29,7 @@ var _ PostsInterface = &Post{}
 
 func (this *Post) List() (posts []*v1.Post, err error) {
 	rst := &v1.PostListResolve{}
-	err = this.client.Get().Path("/v1/posts/list").Do().Into(rst)
+	err = this.client.Get().Path("/v1/posts/").Do().Into(rst)
 	if err != nil {
 		return nil, err
 	}

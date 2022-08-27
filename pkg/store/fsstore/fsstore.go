@@ -88,7 +88,7 @@ func (this *FSStore) DeleteBySlug(slug string) error {
 		}
 		return err
 	}
-	log.Println(err)
+	log.Println(path, err)
 	return errors.New("删除本地文件失败")
 }
 
@@ -118,6 +118,9 @@ func (this *FSStore) Save(post *models.Post) error {
 
 	// 写入文件
 	filePath := fmt.Sprintf("%s/%s", this.root, post.FileName)
+
+	// 设置本地保存的地址
+	post.LocalPath = filePath
 
 	// 加入缓存
 	this.catchMap[post.Slug] = post

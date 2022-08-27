@@ -13,10 +13,14 @@ func NewVersionCtl() *VersionCtl {
 }
 
 func (this *VersionCtl) Version(c *gin.Context) {
-	rst := v1.NewResolve(&v1.Version{
-		Version:   "v0.1",
-		GoVersion: "go1.17",
-	})
+	rst := &v1.Resolve{
+		Code: 200,
+		Msg:  "操作成功",
+		Data: &v1.Version{
+			Version:   "v0.1",
+			GoVersion: "go1.17",
+		},
+	}
 	c.JSON(200, rst)
 }
 

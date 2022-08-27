@@ -14,7 +14,9 @@ func RunCmd() {
 	}
 
 	// 加入子模块
-	cmd.AddCommand(VersionCMD)
+	cmd.AddCommand(
+		VersionCMD,
+		ApplyCMD)
 
 	// 执行
 	if err := cmd.Execute(); err != nil {

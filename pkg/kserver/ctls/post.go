@@ -3,6 +3,7 @@ package ctls
 import (
 	"github.com/gin-gonic/gin"
 	"kun-blog-golang/core/server"
+	v1 "kun-blog-golang/pkg/apis/v1"
 	"kun-blog-golang/pkg/store/fsstore"
 	. "kun-blog-golang/pkg/utils"
 	"log"
@@ -36,10 +37,9 @@ func (this *PostCtl) Apply(c *gin.Context) {
 		postM.FileName = fileList[0].Filename //赋值文件名
 		CheckError(this.fs.Save(postM))
 	}
-	c.JSON(200, gin.H{
-		"code": 200,
-		"msg":  "操作成功",
-		"data": "",
+	c.JSON(200, v1.Resolve{
+		Code: 200,
+		Msg:  "操作成功",
 	})
 }
 
@@ -48,16 +48,15 @@ func (this *PostCtl) Get(c *gin.Context) {
 	m, err := this.fs.GetBySlug(slug)
 	CheckError(err)
 	if m == nil {
-		c.JSON(200, gin.H{
-			"code": 404,
-			"msg":  "没找到文章",
-			"data": "",
+		c.JSON(200, v1.Resolve{
+			Code: 404,
+			Msg:  "没找到文章",
 		})
 	} else {
-		c.JSON(200, gin.H{
-			"code": 200,
-			"msg":  "操作成功",
-			"data": m,
+		c.JSON(200, v1.Resolve{
+			Code: 200,
+			Msg:  "操作成功",
+			Data: m,
 		})
 	}
 }
@@ -65,20 +64,19 @@ func (this *PostCtl) Get(c *gin.Context) {
 func (this *PostCtl) Delete(c *gin.Context) {
 	slug := c.Param("slug")
 	CheckError(this.fs.DeleteBySlug(slug))
-	c.JSON(200, gin.H{
-		"code": 200,
-		"msg":  "操作成功",
-		"data": "",
+	c.JSON(200, v1.Resolve{
+		Code: 200,
+		Msg:  "操作成功",
 	})
 }
 
 func (this *PostCtl) List(c *gin.Context) {
 	list, err := this.fs.List()
 	CheckError(err)
-	c.JSON(200, gin.H{
-		"code": 200,
-		"msg":  "操作成功",
-		"data": list,
+	c.JSON(200, v1.Resolve{
+		Code: 200,
+		Msg:  "操作成功",
+		Data: list,
 	})
 }
 

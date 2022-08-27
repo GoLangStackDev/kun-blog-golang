@@ -1,7 +1,9 @@
 package rest
 
 import (
+	"bytes"
 	"fmt"
+	"github.com/go-resty/resty/v2"
 	"net/http"
 	"net/url"
 )
@@ -28,9 +30,24 @@ func (this *Request) Path(p string) *Request {
 	return this
 }
 
+func (this *Request) ApplyFileByte(url string, fileName string, fileByte []byte, isForce bool) *Result {
+	req := this.c.R().
+		SetHeader(
+			"Content-Length",
+			fmt.Sprintf("%v", len(fileByte))).
+		SetFileReader(fileName, fileName, bytes.NewReader(fileByte))
+	if isForce {
+		req.SetHeader("Force", fmt.Sprintf("%v", isForce))
+	}
+	return toResult(req.Post(url))
+}
+
 func (this *Request) Do() *Result {
+	return toResult(this.c.R().Execute(this.method, this.path))
+}
+
+func toResult(rsp *resty.Response, err error) *Result {
 	rest := &Result{}
-	rsp, err := this.c.R().Execute(this.method, this.path)
 	if err != nil {
 		rest.err = err
 	} else if rsp.IsError() {

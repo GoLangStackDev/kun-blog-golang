@@ -2,12 +2,6 @@ package v1
 
 import "encoding/json"
 
-type Resolve struct {
-	Code int         `json:"code"`
-	Msg  string      `json:"msg"`
-	Data interface{} `json:"data"`
-}
-
 // MustDataByte 返回 data 的 []byte 类型
 func (this *Resolve) MustDataByte() []byte {
 	rst, err := json.Marshal(this.Data)

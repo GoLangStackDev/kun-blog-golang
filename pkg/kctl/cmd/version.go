@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/spf13/cobra"
+	v1 "kun-blog-golang/pkg/apis/v1"
 	"kun-blog-golang/pkg/kctl/clientset"
 	"log"
 )
@@ -34,13 +36,20 @@ var VersionCMD = &cobra.Command{
 	SilenceUsage: true,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Printf("ctl version: %s \n", NewVersionInfo())
-		serVersion, err := clientset.DefClientSet.V1().Version().Get()
+		result, err := clientset.DefClientSet.V1().Version().Get()
+		if err != nil {
+			log.Panicln(err.Error())
+		}
+		// 处理 version
+		versionByte, err := json.Marshal(result.Data)
+		version := &v1.Version{}
+		err = json.Unmarshal(versionByte, version)
 		if err != nil {
 			log.Panicln(err.Error())
 		}
 		fmt.Printf("server version: {version: %s, goversion: %s} \n",
-			serVersion.Version,
-			serVersion.GoVersion)
+			version.Version,
+			version.GoVersion)
 		return nil
 	},
 }

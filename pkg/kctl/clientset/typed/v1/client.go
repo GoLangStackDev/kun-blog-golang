@@ -20,3 +20,8 @@ var _ VersionGetter = &V1Client{}
 func (this *V1Client) Version() VersionInterface {
 	return newVersion(this.client)
 }
+
+// Posts 实现 PostsGetter 接口方法
+func (this *V1Client) Posts() PostsInterface {
+	return NewPost(this.client)
+}

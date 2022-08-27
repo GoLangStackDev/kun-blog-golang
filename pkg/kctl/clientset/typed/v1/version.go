@@ -7,7 +7,7 @@ import (
 
 // VersionInterface 定义 /version 下面有那些方法
 type VersionInterface interface {
-	Get() (rVersion *v1.Version, err error)
+	Get() (rVersion *v1.Resolve, err error)
 }
 
 type version struct {
@@ -22,8 +22,8 @@ func newVersion(client *rest.RESTClient) *version {
 var _ VersionInterface = &version{}
 
 // Get 实现 VersionInterface 接口
-func (this *version) Get() (rVersion *v1.Version, err error) {
-	rVersion = &v1.Version{}
+func (this *version) Get() (rVersion *v1.Resolve, err error) {
+	rVersion = &v1.Resolve{}
 	err = this.client.Get().Path("/v1/version").Do().Into(rVersion)
 	return
 }
